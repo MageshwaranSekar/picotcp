@@ -1269,7 +1269,9 @@ struct pico_device *get_sock_dev(struct pico_socket *s)
 
 static uint32_t pico_socket_adapt_mss_to_proto(struct pico_socket *s, uint32_t mss)
 {
-#ifdef PICO_SUPPORT_IPV6
+#ifndef PICO_SUPPORT_IPV6
+    IGNORE_PARAMETER(s);
+#else
     if (is_sock_ipv6(s))
         mss -= PICO_SIZE_IP6HDR;
     else
