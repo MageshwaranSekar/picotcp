@@ -10,7 +10,10 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
+/* we have our own prototype in PIP for string.h */
+#ifndef PIP
 #include <string.h>
+#endif
 #else
 #include <linux/types.h>
 #endif
@@ -227,7 +230,8 @@ static inline uint64_t long_long_be(uint64_t le)
 # include "arch/pico_generic_gcc.h"
 #elif defined __KERNEL__
 # include "arch/pico_linux.h"
-/* #elif defined ... */
+#elif defined PIP
+#include "arch/pico_pip.h"
 #else
 # include "arch/pico_posix.h"
 #endif
